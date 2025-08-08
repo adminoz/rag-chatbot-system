@@ -5,7 +5,7 @@ const API_URL = '/api';
 let currentSessionId = null;
 
 // DOM elements
-let chatMessages, chatInput, sendButton, totalCourses, courseTitles, newChatButton;
+let chatMessages, chatInput, sendButton, totalCourses, courseTitles, newChatButton, themeToggle;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,8 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     totalCourses = document.getElementById('totalCourses');
     courseTitles = document.getElementById('courseTitles');
     newChatButton = document.getElementById('newChatButton');
+    themeToggle = document.getElementById('themeToggle');
     
     setupEventListeners();
+    initializeTheme();
     createNewSession();
     loadCourseStats();
 });
@@ -32,6 +34,17 @@ function setupEventListeners() {
     
     // New chat button
     newChatButton.addEventListener('click', startNewChat);
+    
+    // Theme toggle
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    // Keyboard accessibility for theme toggle
+    themeToggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleTheme();
+        }
+    });
     
     // Suggested questions
     document.querySelectorAll('.suggested-item').forEach(button => {
@@ -214,6 +227,52 @@ async function loadCourseStats() {
         }
         if (courseTitles) {
             courseTitles.innerHTML = '<span class="error">Failed to load courses</span>';
+        }
+    }
+}
+
+// Theme Functions
+function initializeTheme() {
+    // Check if user has a saved theme preference or default to dark theme
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Default to dark theme unless user specifically chose light
+    const theme = savedTheme || (prefersDark ? 'dark' : 'dark');
+    
+    applyTheme(theme);
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            applyTheme(e.matches ? 'dark' : 'light');
+        }
+    });
+}
+
+function toggleTheme() {
+    const currentTheme = document.documentElement.classList.contains('light-theme') ? 'light' : 'dark';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    applyTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+}
+
+function applyTheme(theme) {
+    const root = document.documentElement;
+    const themeToggleButton = document.getElementById('themeToggle');
+    
+    if (theme === 'light') {
+        root.classList.add('light-theme');
+        if (themeToggleButton) {
+            themeToggleButton.setAttribute('aria-label', 'Switch to dark mode');
+            themeToggleButton.setAttribute('title', 'Switch to dark mode');
+        }
+    } else {
+        root.classList.remove('light-theme');
+        if (themeToggleButton) {
+            themeToggleButton.setAttribute('aria-label', 'Switch to light mode');
+            themeToggleButton.setAttribute('title', 'Switch to light mode');
         }
     }
 }
