@@ -4,6 +4,7 @@ import shutil
 import os
 from unittest.mock import Mock, patch
 from typing import List
+from fastapi.testclient import TestClient
 
 # Add parent directory to path for imports
 import sys
@@ -14,6 +15,7 @@ from vector_store import VectorStore
 from search_tools import CourseSearchTool, ToolManager
 from ai_generator import AIGenerator
 from config import Config
+from fastapi import FastAPI
 
 
 @pytest.fixture
@@ -180,3 +182,66 @@ class TestUtils:
 def test_utils():
     """Provide test utilities"""
     return TestUtils
+
+
+@pytest.fixture
+def test_client():
+    """Create FastAPI test client with mocked dependencies to avoid static file issues"""
+    with patch('app.RAGSystem') as mock_rag_system_class, \
+         patch('app.StaticFiles') as mock_static_files, \
+         patch('app.rag_system') as mock_rag_system_instance, \
+         patch('app.frontend_dir', None):  # Mock frontend_dir to None to avoid mounting
+        
+        # Mock the RAG system class
+        mock_rag_system = Mock()
+        mock_rag_system_class.return_value = mock_rag_system
+        
+        # Mock the global rag_system instance with comprehensive responses
+        mock_rag_system_instance.query.return_value = ("Test answer", [])
+        mock_rag_system_instance.get_course_analytics.return_value = {
+            "total_courses": 0,
+            "course_titles": []
+        }
+        
+        # Mock session manager
+        mock_session_manager = Mock()
+        mock_session_manager.create_session.return_value = "test_session_123"
+        mock_rag_system_instance.session_manager = mock_session_manager
+        
+        # Mock StaticFiles to avoid directory path issues in tests
+        mock_static_files.return_value = Mock()
+        
+        # Import app after mocking to ensure mocks are applied
+        from app import app
+        
+        # Create test client
+        client = TestClient(app)
+        client.mock_rag_system = mock_rag_system_instance
+        
+        yield client
+
+
+@pytest.fixture
+def mock_query_response():
+    """Sample query response for testing"""
+    return {
+        "answer": "Machine learning is a subset of artificial intelligence.",
+        "sources": [
+            {"text": "Course 1 - Introduction to ML", "link": "https://example.com/ml-intro"},
+            {"text": "Course 2 - ML Fundamentals", "link": "https://example.com/ml-fundamentals"}
+        ],
+        "session_id": "test_session_123"
+    }
+
+
+@pytest.fixture
+def mock_course_analytics():
+    """Sample course analytics for testing"""
+    return {
+        "total_courses": 3,
+        "course_titles": [
+            "Introduction to Machine Learning",
+            "Advanced Python Programming", 
+            "Data Science Fundamentals"
+        ]
+    }
