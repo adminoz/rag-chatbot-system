@@ -1,0 +1,34 @@
+2025-08-08 15:37:40,906 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-08-08 15:37:46,220 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-08-08 15:38:02,604 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-08-08 15:38:10,341 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-08-08 15:38:13,032 - app - INFO - Starting RAG System application...
+2025-08-08 15:38:18,741 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-08-08 15:38:21,144 - app - INFO - Starting RAG System application...
+2025-08-08 15:38:21,144 - app - INFO - Loading initial documents from ../docs...
+2025-08-08 15:38:21,195 - app - INFO - Successfully loaded 0 courses with 0 chunks
+2025-08-08 15:38:39,354 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-08-08 15:38:41,778 - app - INFO - Starting RAG System application...
+2025-08-08 15:38:41,778 - app - INFO - Loading initial documents from ../docs...
+2025-08-08 15:38:41,821 - app - INFO - Successfully loaded 0 courses with 0 chunks
+2025-08-08 15:38:55,115 - app - INFO - Processing query request - Query: 'Compare and summarize differences of courses Advanced Retrieval for AI with Chroma and Prompt Compre...' - Session: None
+2025-08-08 15:38:55,116 - ai_generator.AIGenerator - INFO - Anthropic API call started - Initial - Timestamp: 2025-08-08T15:38:55.116597 - Model: claude-sonnet-4-20250514 - Tools: enabled
+2025-08-08 15:38:57,290 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-08-08 15:38:57,299 - ai_generator.AIGenerator - INFO - Anthropic API call completed - Initial - Duration: 2.183s - Stop reason: tool_use - Content blocks: 2
+2025-08-08 15:38:57,358 - ai_generator.AIGenerator - INFO - Anthropic API call started - Round 2 - Timestamp: 2025-08-08T15:38:57.358634 - Model: claude-sonnet-4-20250514 - Tools: enabled
+2025-08-08 15:39:00,052 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-08-08 15:39:00,055 - ai_generator.AIGenerator - INFO - Anthropic API call completed - Round 2 - Duration: 2.697s - Stop reason: tool_use - Content blocks: 2
+2025-08-08 15:39:00,152 - ai_generator.AIGenerator - INFO - Anthropic API call started - Final - Timestamp: 2025-08-08T15:39:00.152007 - Model: claude-sonnet-4-20250514 - Tools: disabled
+2025-08-08 15:39:06,864 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-08-08 15:39:06,895 - ai_generator.AIGenerator - INFO - Anthropic API call completed - Final - Duration: 6.744s - Stop reason: end_turn - Content blocks: 1
+2025-08-08 15:39:49,705 - app - INFO - Processing query request - Query: 'What is the outline of the "MCP: Build Rich-Context AI Apps with Anthropic" course?...' - Session: session_1
+2025-08-08 15:39:49,706 - ai_generator.AIGenerator - INFO - Anthropic API call started - Initial - Timestamp: 2025-08-08T15:39:49.706331 - Model: claude-sonnet-4-20250514 - Tools: enabled
+2025-08-08 15:39:51,228 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-08-08 15:39:51,232 - ai_generator.AIGenerator - INFO - Anthropic API call completed - Initial - Duration: 1.526s - Stop reason: tool_use - Content blocks: 1
+2025-08-08 15:39:51,260 - ai_generator.AIGenerator - INFO - Anthropic API call started - Round 2 - Timestamp: 2025-08-08T15:39:51.260656 - Model: claude-sonnet-4-20250514 - Tools: enabled
+2025-08-08 15:39:55,916 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-08-08 15:39:55,919 - ai_generator.AIGenerator - INFO - Anthropic API call completed - Round 2 - Duration: 4.659s - Stop reason: end_turn - Content blocks: 1
+2025-08-08 16:14:54,119 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-08-08 16:14:58,453 - app - INFO - Starting RAG System application...
+2025-08-08 16:14:58,453 - app - INFO - Loading initial documents from ../docs...
+2025-08-08 16:14:58,508 - app - INFO - Successfully loaded 0 courses with 0 chunks
